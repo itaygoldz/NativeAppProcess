@@ -5,23 +5,25 @@ workflows:
       vars:
         REACT_NATIVE_ENV: production
     scripts:
-      - name: Update Ruby to 3.1.3
+      - name: Install and configure rbenv
         script: |
           brew install rbenv
           rbenv init
-          rbenv install 3.1.3 || true
+          eval "$(rbenv init -)"
+          rbenv install 3.1.3 -s
           rbenv global 3.1.3
-          export PATH="$HOME/.rbenv/shims:$PATH"
           ruby --version
-      - name: Update CocoaPods
+      - name: Install drb gem
         script: |
           gem install drb -v 2.0.6
+      - name: Install CocoaPods
+        script: |
           sudo gem install cocoapods
       - name: Install dependencies
         script: npm install
       - name: Add gonativeio-gonative-specs repo manually
         script: pod repo add gonativeio-gonative-specs https://github.com/gonativeio/gonative-specs.git
-      - name: Install CocoaPods
+      - name: Install CocoaPods dependencies
         script: pod install
       - name: Build iOS
         script: xcodebuild -workspace Sunsip.xcworkspace -scheme Sunsip -sdk iphoneos -configuration Release build
