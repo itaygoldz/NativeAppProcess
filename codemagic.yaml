@@ -5,6 +5,12 @@ workflows:
       vars:
         REACT_NATIVE_ENV: production
     scripts:
+      - name: Update Ruby
+        script: |
+          brew install rbenv
+          rbenv install 2.7.7
+          rbenv global 2.7.7
+          ruby --version
       - name: Update CocoaPods
         script: sudo gem install cocoapods
       - name: Install dependencies
