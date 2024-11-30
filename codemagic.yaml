@@ -5,11 +5,11 @@ workflows:
       vars:
         REACT_NATIVE_ENV: production
     scripts:
-      - name: Update Ruby
+      - name: Update Ruby to 3.1.3
         script: |
           brew install rbenv
-          rbenv install 2.7.7
-          rbenv global 2.7.7
+          rbenv install 3.1.3
+          rbenv global 3.1.3
           ruby --version
       - name: Update CocoaPods
         script: sudo gem install cocoapods
