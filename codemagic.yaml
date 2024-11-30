@@ -8,8 +8,12 @@ workflows:
       - name: Install dependencies
         script: npm install
       - name: Install CocoaPods
-        script: cd ios && pod install
-      - name: Clean build folder
-        script: rm -rf ios/build
+        script: |
+          if [ -f "Podfile" ]; then
+            pod install
+          else
+            echo "No Podfile found in root folder."
+            exit 1
+          fi
       - name: Build iOS
-        script: npx react-native run-ios --configuration Release
+        script: xcodebuild -workspace Sunsip.xcworkspace -scheme Sunsip -sdk iphoneos -configuration Release build
