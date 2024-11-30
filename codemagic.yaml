@@ -18,4 +18,10 @@ workflows:
           gem install drb -v 2.0.6
           sudo gem install cocoapods
       - name: Install dependencies
-    
+        script: npm install
+      - name: Add gonativeio-gonative-specs repo manually
+        script: pod repo add gonativeio-gonative-specs https://github.com/gonativeio/gonative-specs.git
+      - name: Install CocoaPods
+        script: pod install
+      - name: Build iOS
+        script: xcodebuild -workspace Sunsip.xcworkspace -scheme Sunsip -sdk iphoneos -configuration Release build
